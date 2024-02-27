@@ -27,7 +27,7 @@
 	});
 </script>
 
-<div class="flex flex-col" bind:this={popupElement}>
+<div class="" bind:this={popupElement}>
 	{#if open}
 		<slot />
 	{/if}
