@@ -3,51 +3,37 @@
 	import type { LatLngExpression } from 'leaflet';
 	import Leaflet from '$lib/Leaflet.svelte';
 	import Marker from '$lib/Marker.svelte';
-	import Popup from '$lib/Popup.svelte';
 	import Polygon from '$lib/Polygon.svelte';
 
-	const initialView: LatLngExpression = [-27.33056, -55.86667]; // Dortmund, Germany
+	import { cityZones, polygonColors } from '$lib/mockData';
+
+	const initialView: LatLngExpression = [-27.33056, -55.86667];
 	const markerLocations: Array<LatLngExpression> = [
-		[51.513870009926, 7.473969975241] // ShipBit Office
+		[-27.33056, -55.86667]
 	];
-	const polygonLocations: Array<LatLngExpression> = 
-		[
-			[-27.321610536464718, -55.87546287411941],
-			[-27.320424268574538, -55.85889410397638],
-			[-27.33438907224267, -55.85507054163568],
-			[-27.334119498088523, -55.87364213014764]
-		]
-	;
 </script>
 
 <div class="w-full h-screen">
 	<Leaflet view={initialView} zoom={14}>
 		{#each markerLocations as latLng}
 			<Marker {latLng} width={40} height={40}>
-				<!-- ShipBit Icon -->
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					xml:space="preserve"
-					style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2"
-					viewBox="0 0 45 40"
-				>
-					<path
-						d="m23.046 25.449 9.601 16.885H13.253l9.793-16.885ZM45 23.965H25.702l9.575 16.84L45 23.965ZM44.963 20.923 35.339 4.254l-9.668 16.669h19.292ZM32.771 2.618h-4.17L8.522 37.237l2.08 3.603L32.771 2.618ZM25.084 2.618H11.465L0 22.476l6.768 11.722 18.316-31.58Z"
-						style="fill:#e9204f;fill-rule:nonzero"
-						transform="translate(0 -2.618)"
-					/>
-				</svg>
-
-			</Marker>
-			<Polygon {polygonLocations} >
-				<Popup>
+				<!-- <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Svelte</title><path d="M10.354 21.125a4.44 4.44 0 0 1-4.765-1.767 4.109 4.109 0 0 1-.703-3.107 3.898 3.898 0 0 1 .134-.522l.105-.321.287.21a7.21 7.21 0 0 0 2.186 1.092l.208.063-.02.208a1.253 1.253 0 0 0 .226.83 1.337 1.337 0 0 0 1.435.533 1.231 1.231 0 0 0 .343-.15l5.59-3.562a1.164 1.164 0 0 0 .524-.778 1.242 1.242 0 0 0-.211-.937 1.338 1.338 0 0 0-1.435-.533 1.23 1.23 0 0 0-.343.15l-2.133 1.36a4.078 4.078 0 0 1-1.135.499 4.44 4.44 0 0 1-4.765-1.766 4.108 4.108 0 0 1-.702-3.108 3.855 3.855 0 0 1 1.742-2.582l5.589-3.563a4.072 4.072 0 0 1 1.135-.499 4.44 4.44 0 0 1 4.765 1.767 4.109 4.109 0 0 1 .703 3.107 3.943 3.943 0 0 1-.134.522l-.105.321-.286-.21a7.204 7.204 0 0 0-2.187-1.093l-.208-.063.02-.207a1.255 1.255 0 0 0-.226-.831 1.337 1.337 0 0 0-1.435-.532 1.231 1.231 0 0 0-.343.15L8.62 9.368a1.162 1.162 0 0 0-.524.778 1.24 1.24 0 0 0 .211.937 1.338 1.338 0 0 0 1.435.533 1.235 1.235 0 0 0 .344-.151l2.132-1.36a4.067 4.067 0 0 1 1.135-.498 4.44 4.44 0 0 1 4.765 1.766 4.108 4.108 0 0 1 .702 3.108 3.857 3.857 0 0 1-1.742 2.583l-5.589 3.562a4.072 4.072 0 0 1-1.135.499m10.358-17.95C18.484-.015 14.082-.96 10.9 1.068L5.31 4.63a6.412 6.412 0 0 0-2.896 4.295 6.753 6.753 0 0 0 .666 4.336 6.43 6.43 0 0 0-.96 2.396 6.833 6.833 0 0 0 1.168 5.167c2.229 3.19 6.63 4.135 9.812 2.108l5.59-3.562a6.41 6.41 0 0 0 2.896-4.295 6.756 6.756 0 0 0-.665-4.336 6.429 6.429 0 0 0 .958-2.396 6.831 6.831 0 0 0-1.167-5.168Z"/></svg> -->
+				
+				<!-- <Popup>
 					<p class="text-lg">Zona centro</p>
 					<p class="mb-2">Descarga la ordenanza aca! 👇</p> 
 					<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
 						Download
 					</button>
-				</Popup>
-			</Polygon>
+				</Popup> -->
+			</Marker>
+			
+			
+		{/each}
+		{#each cityZones as zone, i }
+		<Polygon polygonLocations={zone.coordinates} polygonName={`${zone.name}`} polygonColor={`${polygonColors[i].color}`} polygonFillColor={`${polygonColors[i].fillColor}`} >
+
+		</Polygon>
 		{/each}
 	</Leaflet>
 </div>
