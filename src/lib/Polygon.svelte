@@ -30,27 +30,19 @@
             }).addTo(map);
 
             leafletPolygon.bindPopup(`
-            <Popup class="flex flex-col justify-center">
-                <p class="">${polygonName}</p>
+            <div>
+                <p class="" style="font-size:1.5rem;">${polygonName}</p>
                 <p class="mb-2">Descarga la ordenanza aca! 👇</p> 
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Download
+                    Descargar ordenanza
                 </button>
-            </Popup>
-        `,
-        {
-            closeOnEscapeKey: true,
-            closeOnClick: true,
-
-        }
+            </div>
+            `,
+            {
+                closeOnEscapeKey: true,
+                closeOnClick: true,
+            }
         );
-
-            // if (polygonName) {
-            //     leafletPolygon.bindPopup(`${polygonName}`);
-            // }
-            // if (polygonContent) {
-            //     leafletPolygon.bindPopup(polygonContent);
-            // }
         }
 	});
 
@@ -60,16 +52,8 @@
 	});
 </script>
 
-<div bind:this={cosoElement}>
+<div>
 	{#if leafletPolygon}
-    <!-- <div bind:this={polygonContent}>
-        <Popup>
-            <p class="text-lg">{polygonName}</p>
-            <p class="mb-2">Descarga la ordenanza aca! 👇</p> 
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Download
-            </button>
-        </Popup>
-    </div> -->
+        <slot />
 	{/if}
 </div>
